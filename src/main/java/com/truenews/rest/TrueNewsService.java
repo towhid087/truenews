@@ -80,15 +80,7 @@ public class TrueNewsService    {
         if(StringUtils.isEmpty(title)){
             throw new MissingParameterException(" searchString::" + title);
         }
-        String url= "https://gnews.io/api/v4/search?q="+title +"&in=title"  +"&lang=en&apikey=" + API_KEY;
-        LOGGER.info("URL for searchByKeyWord:: " + url);
-        RestTemplate restTemplate = new RestTemplate();
-        SearchResponse listOfArticles= null;
-        try {
-            listOfArticles = restTemplate.getForObject(url, SearchResponse.class);
-        }catch (Exception e){
-            LOGGER.error("error while calling GNews " + e.getMessage());
-        }
+        SearchResponse listOfArticles = trueNewsServiceImpl.getSearchResponseByTitle(title);
 
         LOGGER.info("Result** "+ listOfArticles.toString());
         return listOfArticles.getArticles();
@@ -107,6 +99,4 @@ public class TrueNewsService    {
         LOGGER.info("Result** "+ listOfArticles.toString());
         return listOfArticles.getArticles();
     }
-
-
 }
